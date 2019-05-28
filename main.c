@@ -1,15 +1,16 @@
 #include <stdio.h>
-#include <stdlib.h>
 
-int main(){
-    int x,max=x;
-    while (x != 0) {
+int main() {
+    int x,med,i;
+    med=0;
+    i=0;
+    scanf ("%d",&x);
+    while (x !=0) {
+        med =  med + x;
+        i=i+1;
         scanf ("%d",&x);
-        if (x>max) max=x;
-
     }
-    printf("%d",max);
-
+    med = med/i;
+    printf("%d", med);
     return 0;
 }
-

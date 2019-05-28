@@ -30,3 +30,39 @@ int length (LInt list) {
     }
     return conta;
 }
+
+// 2
+
+void freeL (LInt l){
+    LInt temp;
+    while (l != NULL){
+        temp = l;
+        l= l -> prox;
+        free(temp);
+    }
+}
+
+// 3
+
+void imprimeL (LInt l){
+    while (l != NULL){
+        printf ("%d",l-> valor);
+        l=l->prox;
+    }
+}
+
+// 4 
+
+LInt reverseL (LInt l){
+    LInt prev= NULL;
+    LInt next;
+    while (l != NULL){
+        next=l->prox;
+        l->prox=prev;
+        prev=l;
+        l=next;
+    }
+    return prev;
+}
+     
+        

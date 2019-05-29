@@ -191,29 +191,30 @@ int removeAll (LInt *l, int x){
     return conta;
 }
 
-// 11  --------   ERRADO     --------
+// 11
 
 int removeDups (LInt *l){
 	int conta=0;
-	int x;
 	LInt current=*l;
-	LInt inicio;
+	LInt prev=current;
+	LInt move;
+	int x=(*l)->valor;
 	while(current != NULL){
 		x=current->valor;
-		l=&((*l)->prox);
-		inicio=l;
-		while((*l) != NULL){
-			if((*l)->valor ==x){
-				*l=(*l)->prox;
-				conta++;
+		prev=current;
+		move=current->prox;
+		while(move != NULL){
+			if(move->valor == x){
+			    conta++;
+			    prev -> prox= move ->prox;
+			    move=move->prox;
 			}
 			else{
-				l=&((*l)->prox);
+			prev=move;
+			move=move->prox;
 			}
 		}
-		*l=NULL;
 		current=current->prox;
-		*l=current;
 	}
 	return conta;
 }

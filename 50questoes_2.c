@@ -94,5 +94,46 @@ int removeOneOrd (LInt *l , int x){
 	}	
 }
 
+// 7
+
+void merge (LInt *r, LInt l1, LInt l2){
+	if(l1 == NULL){
+		*r=l2;
+	}
+	else if (l2==NULL){
+		*r=l1;
+	}
+	else if ((l1 == NULL)&&(l2==NULL)){
+		*r=NULL;
+	}
+	else{
+		if(l1->valor < l2->valor){
+			*r=l1;
+			l1=l1->prox;
+		}
+		else{
+			*r=l2;
+			l2=l2->prox;
+		}
+		while((l1 != NULL)&&(l2 != NULL)){
+			if(l1->valor < l2->valor){
+				(*r)->prox=l1;
+				r=&((*r)->prox);
+				l1=l1->prox;
+			}
+			else{
+				(*r)->prox=l2;
+				r=&((*r)->prox);
+				l2=l2->prox;
+			}
+		}
+		if(l1==NULL){
+			(*r)->prox=l2;
+		}
+		else {
+			(*r)->prox=l1;
+		}
+	}
+}
 
         

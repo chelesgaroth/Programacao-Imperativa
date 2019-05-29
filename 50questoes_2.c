@@ -190,3 +190,32 @@ int removeAll (LInt *l, int x){
     }
     return conta;
 }
+
+// 11  --------   ERRADO     --------
+
+int removeDups (LInt *l){
+	int conta=0;
+	int x;
+	LInt current=*l;
+	LInt inicio;
+	while(current != NULL){
+		x=current->valor;
+		l=&((*l)->prox);
+		inicio=l;
+		while((*l) != NULL){
+			if((*l)->valor ==x){
+				*l=(*l)->prox;
+				conta++;
+			}
+			else{
+				l=&((*l)->prox);
+			}
+		}
+		*l=NULL;
+		current=current->prox;
+		*l=current;
+	}
+	return conta;
+}
+
+// 12

@@ -219,3 +219,26 @@ int removeDups (LInt *l){
 }
 
 // 12
+
+int removeMaiorL (LInt *l){
+	LInt current = (*l)->prox;
+    LInt prev = (*l);
+    int maior = (*l)->valor;
+    LInt maiorL;
+    LInt maxPrev;
+	while (current != NULL){
+		if (current->valor > maior){
+			maior = current->valor;
+			maiorL=current;
+			maxPrev=prev;
+		}
+		prev=current;
+		current = current->prox;
+	}
+	if(maior == (*l)->valor)
+        (*l) = (*l)->prox;
+    else{
+	    maxPrev->prox = maiorL->prox;
+    }
+	return maior;
+}

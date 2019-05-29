@@ -172,3 +172,23 @@ void splitQS (LInt l, int x, LInt *mx, LInt *Mx){
     }
     
 }
+
+// 9
+
+// 10
+
+int removeAll (LInt *l, int x){
+    LInt current;
+    LInt prev;
+    int conta=0;
+    while((*l) != NULL){
+        if((*l)->valor ==x){
+            *l=(*l)->prox;
+            conta++;
+        }
+        else{
+            l=&((*l)->prox);
+        }
+    }
+    return conta;
+}

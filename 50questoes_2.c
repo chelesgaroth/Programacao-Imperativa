@@ -88,8 +88,8 @@ int removeOneOrd (LInt *l , int x){
 	if (*l == NULL){
 		return 1;
 	}
-    else{
-    	*l = (*l)-> prox;
+	else{
+		*l = (*l)-> prox;
 		return 0;
 	}	
 }

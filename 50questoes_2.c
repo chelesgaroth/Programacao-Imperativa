@@ -136,4 +136,39 @@ void merge (LInt *r, LInt l1, LInt l2){
 	}
 }
 
-        
+// 8                  ------      NAO ESTÁ CERTO , É NECESSÁRIO REVER     --------
+
+void splitQS (LInt l, int x, LInt *mx, LInt *Mx){
+    
+    if(l==NULL){
+        *Mx=NULL;
+        *mx=NULL;
+    }
+    else{
+        if(l->valor < x){
+            *mx=l;
+            *Mx=NULL;
+            l=l->prox;
+        }
+        else{
+            *Mx=l;
+            *mx=NULL;
+            l=l->prox;
+        }
+        while (l != NULL){
+            if(l->valor < x){
+                (*mx)->prox= l;
+                mx= &((*mx)->prox);
+                l=l->prox;
+            }
+            else{
+                (*Mx)->prox= l;
+                Mx= &((*Mx)->prox);
+                l=l->prox;
+            }
+        }
+        (*mx)->prox=NULL;
+        (*Mx)->prox=NULL;
+    }
+    
+}

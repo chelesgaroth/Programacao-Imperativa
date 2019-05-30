@@ -243,3 +243,44 @@ int removeMaiorL (LInt *l){
     }
 	return maior;
 }
+
+// 13
+
+void init (LInt *l){
+ 	while ((*l)->prox != NULL){
+ 		l=&((*l)->prox);
+ 	}
+ 	free(*l);
+ 	*l=NULL;
+}
+
+// 14
+
+void appendL (LInt *l, int x){
+	LInt new = malloc(sizeof(struct lligada));
+	new->valor=x;
+	new->prox = NULL;
+	if((*l) == NULL){
+	    (*l) = new;
+	}
+    else{
+		while ((*l)->prox != NULL){
+			l=&((*l)->prox);
+ 		}
+		(*l)->prox=new;
+	}
+}
+
+// 15
+
+void concatL (LInt *a, LInt b){
+	if ((*a)==NULL){
+		*a=b;
+	}
+	else{
+		while ((*a)->prox != NULL){
+			a=&((*a)->prox);
+ 		}
+		(*a)->prox=b;
+	}
+}

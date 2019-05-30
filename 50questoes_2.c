@@ -2,10 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 
+//        ---------------  LISTAS LIGADAS   -----------------
+
 typedef struct lligada {
     int valor;
     struct lligada *prox;
 } *LInt;
+
 
 LInt newLInt (int, LInt);
 int length (LInt l);
@@ -88,8 +91,8 @@ int removeOneOrd (LInt *l , int x){
 	if (*l == NULL){
 		return 1;
 	}
-	else{
-		*l = (*l)-> prox;
+    else{
+    	*l = (*l)-> prox;
 		return 0;
 	}	
 }
@@ -136,41 +139,43 @@ void merge (LInt *r, LInt l1, LInt l2){
 	}
 }
 
-// 8                  ------      NAO ESTÁ CERTO , É NECESSÁRIO REVER     --------
+
+// 8
 
 void splitQS (LInt l, int x, LInt *mx, LInt *Mx){
-    
-    if(l==NULL){
-        *Mx=NULL;
-        *mx=NULL;
-    }
-    else{
-        if(l->valor < x){
-            *mx=l;
-            *Mx=NULL;
-            l=l->prox;
-        }
-        else{
-            *Mx=l;
-            *mx=NULL;
-            l=l->prox;
-        }
-        while (l != NULL){
-            if(l->valor < x){
-                (*mx)->prox= l;
-                mx= &((*mx)->prox);
-                l=l->prox;
-            }
-            else{
-                (*Mx)->prox= l;
-                Mx= &((*Mx)->prox);
-                l=l->prox;
-            }
-        }
-        (*mx)->prox=NULL;
-        (*Mx)->prox=NULL;
-    }
-    
+	if (l==NULL){
+		*mx=NULL;
+		*Mx=NULL;
+	}
+	else{
+		if (l->valor < x){
+			*mx = l;
+			l=l->prox;
+		}
+		else if (l->valor > x) {
+			*Mx =l;
+			l=l->prox;
+		}
+		else{
+			*mx=NULL;
+			*Mx=NULL;
+			l=l->prox;
+		}
+		while(l!=NULL){
+			if (l->valor < x){
+				(*mx)->prox= l;
+				mx=&((*mx)->prox);
+				l=l->prox;
+			}
+			else {
+				(*Mx)->prox= l;
+				Mx=&((*Mx)->prox);
+				l=l->prox;
+			} 
+		}
+		(*mx)->prox=NULL;
+		(*Mx)->prox=NULL;
+	}
 }
 
 // 9
@@ -284,3 +289,182 @@ void concatL (LInt *a, LInt b){
 		(*a)->prox=b;
 	}
 }
+
+// 16
+
+LInt cloneL (LInt l){
+	LInt list=NULL,inicio=NULL;
+	while(l!=NULL){
+		LInt new=malloc(sizeof(struct lligada));
+		new->valor=l->valor;
+		new->prox=NULL;
+		if(inicio==NULL) list=inicio=new;
+		else{
+			list=list->prox=new;
+		}
+		l=l->prox; 
+	}
+	return inicio;
+}
+
+// 17
+
+LInt cloneRev (LInt l){
+	LInt prev=NULL;
+	while(l!=NULL){
+		LInt new=malloc(sizeof(struct lligada));
+		new->valor=l->valor;
+		new->prox=prev;
+		prev=new;
+		l=l->prox; 
+	}
+	return prev;
+}
+
+// 18
+
+int maximo (LInt l){
+ 	int maior=l->valor;
+ 	l=l->prox;
+ 	while(l != NULL){
+ 		if(l->valor > maior){
+ 			maior=l->valor;
+ 		}
+ 		l=l->prox;
+ 	}
+ 	return maior;
+}
+
+// 19
+
+int take (int n, LInt *l) {
+	int length=0;
+	while( ((*l) != NULL) && (length<=n)){
+		length++;
+		if(length<=n) l=&((*l)->prox);	//porque assim que length>n,nao andamos um nodo para a frente e alteramos já esse nodo;
+	}
+	if (length>n){
+		free(*l);
+		(*l)=NULL;
+		return n;
+	}
+	else return length;
+}
+
+// 20
+
+int drop (int n, LInt *l){
+	int i=0;
+	LInt temp; //criar a temporaria por causa do free
+	while( ((*l) != NULL) && i<n){
+		temp=*l;
+		i++;
+		*l=(*l)->prox;
+		free(temp);
+    }
+    return i;
+}
+
+// 21 
+
+LInt NForward (LInt l, int N){
+    int i;
+	for(i=0;i<N;i++){
+		l=l->prox;
+	}
+	return l;
+} 
+
+// 22 
+
+int listToArray (LInt l, int v[], int N){
+	int i=0;
+	while(l != NULL && i<N){
+		v[i]= l->valor;
+		l=l->prox;
+		i++;
+	}
+	return i;
+}
+
+// 23
+
+LInt arrayToList (int v[], int N){
+	LInt inicio=NULL;
+	LInt list=NULL;
+	int i;
+	for(i=0;i<N;i++){
+		LInt new=malloc(sizeof(struct lligada));
+		new->valor=v[i];
+		new->prox=NULL;
+		if(inicio==NULL)inicio=list=new;
+		else list=list->prox=new; 
+	}
+	return inicio;
+}
+
+// 24
+
+LInt somasAcL (LInt l){
+	LInt inicio=NULL;
+	LInt list=NULL;
+	int soma=0;
+	while(l!=NULL){
+		LInt new=malloc(sizeof(struct lligada));
+		soma=soma+l->valor;
+		new->valor=soma;
+		new->prox=NULL;
+		if(inicio==NULL)inicio=list=new;
+		else list=list->prox=new; 
+		l=l->prox;
+	}
+	return inicio;
+}
+
+// 25
+
+void remreps (LInt l){ //podemos fazer desta forma porque é uma lista ordenada
+	LInt temp;
+	if(l != NULL) {
+        while(l->prox != NULL) {
+            if((l->prox)->valor == l->valor) {
+                temp = l->prox;
+                l->prox = temp->prox;
+                free(temp);
+            }
+            else l = l->prox;
+        }
+    }
+}
+
+// 26 
+
+LInt rotateL (LInt l){
+	if(l==NULL || l->prox==NULL) return l;
+	LInt first=l;
+	LInt list=l->prox;
+	while(l->prox != NULL){
+		l=l->prox;
+	}
+	first->prox=NULL;
+	l->prox=first;
+	return list;
+}
+
+// 27
+
+LInt parte (LInt l) {
+    LInt inicio = NULL, list = NULL;
+    while(l!=NULL && l->prox!=NULL) {
+        if(inicio==NULL) inicio = list = l->prox;
+        else list = list->prox = l->prox;
+        l = l->prox = l->prox->prox;
+        list->prox = NULL;
+    }
+    return inicio;
+}
+
+//       ------------- 	ÁRVORES BINÁRIAS  --------------
+
+// 28
+

@@ -14,3 +14,5 @@ int main(){
 
     return 0;
 }
+
+//............ ainda não copiei para aqui o resto das resoluções
